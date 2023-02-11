@@ -1,0 +1,12 @@
+.delete_wrapper {
+    width: 100px;
+}
+
+#delete-list,
+#div-add {
+    display:none;
+}
+
+#form-add {
+    min-width: 300px;
+}
