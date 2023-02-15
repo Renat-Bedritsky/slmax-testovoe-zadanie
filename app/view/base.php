@@ -1,5 +1,6 @@
 <?php
 $users = $_POST['users'];
+$kitWords = $_POST['kitWords'];
 ?>
 <script>
 function setId(id) {
@@ -15,18 +16,18 @@ function setId(id) {
     <div class="row my-3">
         <form action="/search" method="POST" class="row col w-50">
             <div class="form-group col">
-                <label class="form-label m-2">Найти по ID</label>
+                <label class="form-label m-2" id="find-by-id"><?= $kitWords['find']; ?></label>
             </div>
             <div class="form-group col">
-                <input type="number" class="form-control mx-2" id="search-min" name="min" placeholder="От" min="0">
+                <input type="number" class="form-control mx-2" id="search-min" name="min" placeholder="<?= $kitWords['pretext']['from']; ?>" min="0">
             </div>
             <div class="form-group col">
-                <input type="number" class="form-control mx-2" id="search-max" name="max" placeholder="До" min="0">
+                <input type="number" class="form-control mx-2" id="search-max" name="max" placeholder="<?= $kitWords['pretext']['to']; ?>" min="0">
             </div>
         </form>
 
-        <form action="/" method="POST" class="text-end col mx-2">
-            <button id="call-add" class="btn btn-success">Добавить</button>
+        <form action="/" method="POST" class="text-end col mx-2 form-button-add">
+            <button id="call-add" class="btn btn-success"><?= $kitWords['add']; ?></button>
         </form>
     </div>
 
@@ -34,13 +35,13 @@ function setId(id) {
         <table class="table table-hover" id="list-people">
             <thead class="thead-dark">
                 <tr>
-                    <th>ID</th>
-                    <th>Имя</th>
-                    <th>Фамилия</th>
-                    <th>День рождения</th>
-                    <th>Пол</th>
-                    <th>Город</th>
-                    <th class="delete_wrapper">Действие</th>
+                    <th id="table-id"><?= $kitWords['fields']['id']; ?></th>
+                    <th id="table-name"><?= $kitWords['fields']['name']; ?></th>
+                    <th id="table-surname"><?= $kitWords['fields']['surname']; ?></th>
+                    <th id="table-age"><?= $kitWords['fields']['age']; ?></th>
+                    <th id="table-gender"><?= $kitWords['fields']['gender']; ?></th>
+                    <th id="table-city"><?= $kitWords['fields']['city']; ?></th>
+                    <th id="table-action" class="delete_wrapper"><?= $kitWords['fields']['action']; ?></th>
                 </tr>
             </thead>
 
@@ -51,11 +52,12 @@ function setId(id) {
                     <td><?= $user['name']; ?></td>
                     <td><?= $user['surname']; ?></td>
                     <td><?= $user['age']; ?></td>
-                    <td><?= $user['gender']; ?></td>
+                    <td id="span-gender" style="display:none;"><?= $user['gender']; ?></td>
+                    <td id="table-gender"><?= $kitWords['gender'][$user['gender']]; ?></td>
                     <td><?= $user['city']; ?></td>
                     <td class="delete_wrapper">
                         <form action="/" method="POST">
-                            <button class="btn btn-danger" name="delete" id="delete-<?= $user['id']; ?>">Удалить</button>
+                            <button class="btn btn-danger delete-one" name="delete" id="delete-<?= $user['id']; ?>"><?= $_POST['kitWords']['delete']; ?></button>
 
                             <script>
                                 setId(<?= $user['id'] ?>);
@@ -67,7 +69,7 @@ function setId(id) {
             </tbody>
         </table>
             <form action="/search" method="POST" id="delete-list" class="text-end mx-2">
-                <button class="btn btn-danger my-2" name="delete-list"">Удалить найденных</button>
+                <button class="btn btn-danger my-2 delete-found" name="delete-list""><?= $_POST['kitWords']['delete-found']; ?></button>
             </form>
     </div>
 </div>

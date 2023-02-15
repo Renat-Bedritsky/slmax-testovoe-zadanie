@@ -2,5 +2,6 @@
 
 return [
     '\/?' => 'Base/Base',
-    '\/?search' => 'Base/Search'
+    '\/?search' => 'Base/Search',
+    '\/?set-language' => 'Base/SetLanguage'
 ];

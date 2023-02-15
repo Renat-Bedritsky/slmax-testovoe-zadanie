@@ -16,7 +16,10 @@ class UsersModel extends Model
             $people = $this->getList();
 
             foreach ($people as $key => $person) {
-                $people[$key] += ['age' => self::age($person['birthday'])];
+                $age = self::age($person['birthday']);
+                $age = transformationAge($age);
+                
+                $people[$key] += ['age' => $age];
                 $people[$key]['gender'] = self::gender($person['gender']);
             }
 
@@ -69,23 +72,13 @@ class UsersModel extends Model
     // Функция для преобразования даты рождения в возраст
     static function age($birthday)
     {
-        $age = floor((strtotime("now") - strtotime($birthday)) / YEARINSECONDS);
-        if ($age == 1 || ($age%10 == 1 && $age != 11)) {
-            return $age . " год";
-        }
-        else if (($age >=2 && $age <= 4) || ($age%10 >=2 && $age%10 <= 4 && $age >=22)) {
-            return $age . " года";
-        }
-        else if ($age == 0 || ($age >= 5 && $age <= 20) || $age%10 == 5) {
-            return $age . " лет";
-        }
+        return floor((strtotime("now") - strtotime($birthday)) / YEARINSECONDS);
     }
 
     // Функция для преобразования пола из двоичной систему в текстовую
     static function gender($gender)
     {
-        if ($gender == '1') return 'Мужчина';
-        if ($gender == '0') return 'Женщина';
+        return ($gender == '1') ? 'male' : 'female';
     }
 
     public function deletePerson($id)

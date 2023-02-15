@@ -24,6 +24,9 @@ class BaseController extends Controller
 
         $_POST['users'] = $this->users->__construct();
         $_POST['date'] = date('Y-m-d');
+        $_POST['kitWords'] = $this->kitWords;
+
+        echo $this->users->age;
 
         $this->view->show('base');
     }
@@ -71,6 +74,19 @@ class BaseController extends Controller
                 $this->search->deletePersons($min, $max);
                 
                 echo json_encode(array('first' => $min, 'last' => $max));
+                return; 
+            }
+        }
+    }
+
+    function actionSetLanguage()
+    {
+        if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest') {
+            if (isset($_REQUEST['set_language'])) {
+                setcookie('language', $_REQUEST['set_language']);
+
+                $this->kitWords = include('app/components/language/' . $_REQUEST['set_language'] . '.php');
+                echo json_encode((array)$this->kitWords);
                 return; 
             }
         }

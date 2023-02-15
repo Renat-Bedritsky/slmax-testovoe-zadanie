@@ -1,0 +1,6 @@
+@media (max-width: 770px) 
+{
+    .form-button-add {
+        flex: 0;
+    }
+}

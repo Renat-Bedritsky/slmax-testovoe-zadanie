@@ -1,3 +1,13 @@
+#language {
+    margin-top: -53px;
+    margin-bottom: 23px;
+}
+
+#language select {
+    padding-right: 10px;
+    width: 120px;
+}
+
 .delete_wrapper {
     width: 100px;
 }
@@ -9,4 +19,13 @@
 
 #form-add {
     min-width: 300px;
+}
+
+.form-button-add button {
+    min-width:96px;
+}
+
+.delete-one,
+.delete-found {
+    min-width:96px;
 }
